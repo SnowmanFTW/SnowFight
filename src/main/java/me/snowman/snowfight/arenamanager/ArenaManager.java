@@ -60,6 +60,7 @@ public class ArenaManager {
         for(String arenaName: arenaFiles.getArenas().getKeys(false)){
             Arena arena =  new Arena(arenaName, arenaFiles.getArena(arenaName).getBoolean("Enabled"));
             arena.setNeededPlayers(arenaFiles.getArena(arenaName).getInt("NeededPlayers"));
+            arena.setRedSpawn(arenaFiles.getArena(arenaName).getLocation("RedSpawn"));
             getArenas().add(arena);
         }
     }

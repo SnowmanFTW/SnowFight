@@ -8,6 +8,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Arrays;
+
 public class ArenaSetupGUI {
     private final ArenaManager arenaManager;
     public ArenaSetupGUI(ArenaManager arenaManager){
@@ -36,11 +38,13 @@ public class ArenaSetupGUI {
         if(arena.getNeededPlayers() == 0){
             neededPlayers = new ItemStack(Material.RED_CONCRETE);
             meta = neededPlayers.getItemMeta();
-            meta.setDisplayName(ChatColor.RED + "Not set");
+            meta.setDisplayName(ChatColor.RED + "Needed Players");
+            meta.setLore(Arrays.asList(ChatColor.GRAY + "Not set"));
         }else{
             neededPlayers = new ItemStack(Material.GREEN_CONCRETE);
             meta = neededPlayers.getItemMeta();
-            meta.setDisplayName(ChatColor.GREEN + "Set (" + arena.getNeededPlayers() + ")");
+            meta.setDisplayName(ChatColor.GREEN + "Needed Players");
+            meta.setLore(Arrays.asList(ChatColor.GRAY + "Set (" + arena.getNeededPlayers() + ")"));
         }
         neededPlayers.setItemMeta(meta);
         return neededPlayers;
@@ -48,9 +52,19 @@ public class ArenaSetupGUI {
 
     public ItemStack getRedSpawn(Player player){
         Arena arena = arenaManager.isEditing(player);
+        ItemMeta meta;
         if(arena.getRedSpawn() == null){
             redSpawn = new ItemStack(Material.RED_CONCRETE);
-        }else redSpawn = new ItemStack(Material.GREEN_CONCRETE);
+            meta = redSpawn.getItemMeta();
+            meta.setDisplayName(ChatColor.RED + "Red Spawn");
+            meta.setLore(Arrays.asList(ChatColor.GRAY + "Not set"));
+        }else{
+            redSpawn = new ItemStack(Material.GREEN_CONCRETE);
+            meta = redSpawn.getItemMeta();
+            meta.setDisplayName(ChatColor.GREEN + "Red Spawn");
+            meta.setLore(Arrays.asList(ChatColor.GRAY + "Set (" + arena.getRedSpawn().getBlockX() + "/" + arena.getRedSpawn().getBlockY() + "/" + arena.getRedSpawn().getBlockZ() + ")"));
+        }
+        redSpawn.setItemMeta(meta);
         return redSpawn;
     }
 

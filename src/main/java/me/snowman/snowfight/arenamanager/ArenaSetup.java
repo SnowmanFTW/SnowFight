@@ -37,9 +37,11 @@ public class ArenaSetup implements Listener {
         if(event.getCurrentItem() == null || event.getCurrentItem().getType().equals(Material.AIR)) return;
         if(event.getCurrentItem().equals(arenaSetupGUI.getNeededPlayers(player))){
             chatInput.put(player.getUniqueId(), "np");
-            player.closeInventory();
-            arenaManager.addEditing(player, arena);
+        }else if(event.getCurrentItem().equals(arenaSetupGUI.getRedSpawn(player))){
+            chatInput.put(player.getUniqueId(), "rp");
         }
+        player.closeInventory();
+        arenaManager.addEditing(player, arena);
     }
 
     @EventHandler
@@ -53,16 +55,23 @@ public class ArenaSetup implements Listener {
         Player player = event.getPlayer();
 
         if(!chatInput.containsKey(player.getUniqueId())) return;
-        if(chatInput.get(player.getUniqueId()).equalsIgnoreCase("np")){
-            event.setCancelled(true);
-            chatInput.remove(player.getUniqueId());
-            arenaManager.isEditing(player).setNeededPlayers(Integer.parseInt(event.getMessage()));
-            arenaFiles.getArena(arenaManager.isEditing(player).getName()).set("NeededPlayers", event.getMessage());
-            arenaFiles.saveArena(arenaManager.isEditing(player));
-            getServer().getScheduler().runTask(snowFight, () -> {
-                player.openInventory(arenaSetupGUI.getSetup(player, arenaManager.isEditing(player)));
-            });
+        event.setCancelled(true);
+        switch(chatInput.get(player.getUniqueId())){
+            case "np":
+                arenaManager.isEditing(player).setNeededPlayers(Integer.parseInt(event.getMessage()));
+                arenaFiles.getArena(arenaManager.isEditing(player).getName()).set("NeededPlayers", event.getMessage());
+                arenaFiles.saveArena(arenaManager.isEditing(player));
+                break;
+            case "rp":
+                arenaManager.isEditing(player).setRedSpawn(player.getLocation());
+                arenaFiles.getArena(arenaManager.isEditing(player).getName()).set("RedSpawn", player.getLocation());
+                arenaFiles.saveArena(arenaManager.isEditing(player));
+                break;
         }
+        chatInput.remove(player.getUniqueId());
+        getServer().getScheduler().runTask(snowFight, () -> {
+            player.openInventory(arenaSetupGUI.getSetup(player, arenaManager.isEditing(player)));
+        });
     }
 }
 

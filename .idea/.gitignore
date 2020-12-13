@@ -6,5 +6,13 @@
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
-#target forlder
-/../../../../../../:\Users\Snowman\IdeaProjects\Snow Fight\target
+#yes
+/target
+*.idea
+.idea
+
+*.bin
+*.lock
+.gradle
+
+*.iml
