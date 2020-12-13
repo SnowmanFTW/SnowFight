@@ -6,6 +6,7 @@ public class GameManager {
         this.arenaManager = arenaManager;
     }
 
+    //methods for when the game starts, mid game, end etc.
     public void gameStart(){
 
     }

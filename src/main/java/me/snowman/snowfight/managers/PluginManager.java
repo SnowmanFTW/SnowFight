@@ -22,6 +22,7 @@ public class PluginManager {
         this.arenaFiles = arenaFiles;
     }
 
+    //various plugin methods
     public void registerCommands(){
         snowFight.getCommand("snowfight").setExecutor(new me.snowman.snowfight.commands.SnowFight(arenaManager, arenaSetupGUI));
     }

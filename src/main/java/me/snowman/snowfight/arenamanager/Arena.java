@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+//literally the arena object
 public class Arena {
     private String name;
     private boolean enabled;

@@ -15,10 +15,12 @@ public class ArenaManager {
     }
 
 
+    //returns all the arenas
     public List<Arena> getArenas(){
         return arenas;
     }
 
+    //returns a specified arena, return null if it doesnt exist
     public Arena getArena(String name){
         for(Arena arena: arenas){
             if(arena.getName().equalsIgnoreCase(name)){
@@ -28,6 +30,7 @@ public class ArenaManager {
         return null;
     }
 
+    //adds a player to an arena
     public void addPlayer(Player player, String arenaName){
         if(getArena(arenaName) == null) return;
          if(player == null) return;
@@ -36,6 +39,7 @@ public class ArenaManager {
          arena.getPlayers().add(player.getUniqueId());
     }
 
+    //removes a player from the arena
     public void removePlayer(Player player){
         for(Arena arena: arenas){
             if(arena.getPlayers().contains(player.getUniqueId())){
@@ -44,6 +48,7 @@ public class ArenaManager {
         }
     }
 
+    //creates an arena
     public void createArena(String name){
         for(Arena arena: arenas){
             if(arena.getName().equalsIgnoreCase(name)){
@@ -56,6 +61,7 @@ public class ArenaManager {
         arenaFiles.saveArena(arena);
     }
 
+    //loads the arenas from the arena file
     public void loadArenas(){
         for(String arenaName: arenaFiles.getArenas().getKeys(false)){
             Arena arena =  new Arena(arenaName, arenaFiles.getArena(arenaName).getBoolean("Enabled"));
@@ -66,12 +72,14 @@ public class ArenaManager {
         }
     }
 
+    //deletes an arena
     public void deleteArena(String name){
         arenas.removeIf(arena -> arena.getName().equalsIgnoreCase(name));
         arenaFiles.getArenas().set(name, null);
         arenaFiles.saveArenas();
     }
 
+    //checks is player is in setup mode
     public Arena isEditing(Player player){
         if(isEditing.containsKey(player.getUniqueId())){
             return isEditing.get(player.getUniqueId());
@@ -79,10 +87,12 @@ public class ArenaManager {
         return null;
     }
 
+    //adds the player to setup mode
     public void addEditing(Player player, Arena arena){
         isEditing.put(player.getUniqueId(), arena);
     }
 
+    //removes the player from setup mode
     public void removeEditing(Player player){
         isEditing.remove(player.getUniqueId());
     }

@@ -29,6 +29,7 @@ public class ArenaSetup implements Listener {
 
     private final Map<UUID, String> chatInput = new HashMap<>();
 
+    //sets input for chat from the gui
     @EventHandler
     public void onGUISetup(InventoryClickEvent event){
         Player player = (Player) event.getWhoClicked();
@@ -46,12 +47,14 @@ public class ArenaSetup implements Listener {
         arenaManager.addEditing(player, arena);
     }
 
+    //removes player from setup mode
     @EventHandler
     public void onGUIExit(InventoryCloseEvent event){
         Player player = (Player) event.getPlayer();
         if(arenaManager.isEditing(player) != null) arenaManager.removeEditing(player);
     }
 
+    //gets chat input to set the arena info
     @EventHandler
     public void onChat(AsyncPlayerChatEvent event){
         Player player = event.getPlayer();

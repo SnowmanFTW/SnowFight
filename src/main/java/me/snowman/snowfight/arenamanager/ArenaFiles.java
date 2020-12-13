@@ -18,7 +18,7 @@ public class ArenaFiles {
         this.snowFight = snowFight;
     }
 
-
+    //makes the plugin folder + arenas.yml file in case it doesnt exist
     public void setupArenas(){
         if(!snowFight.getDataFolder().exists()){
             snowFight.getDataFolder().mkdir();
@@ -35,6 +35,7 @@ public class ArenaFiles {
         config = YamlConfiguration.loadConfiguration(arenas);
     }
 
+    //gets the arena file
     public FileConfiguration getArenas(){
         if(arenas == null){
             arenas = new File(snowFight.getDataFolder(), "arenas.yml");
@@ -43,6 +44,7 @@ public class ArenaFiles {
         return config;
     }
 
+    //gets an arena section in the file
     public ConfigurationSection getArena(String name){
         if(arenas == null){
             arenas = new File(snowFight.getDataFolder(), "arenas.yml");
@@ -51,6 +53,7 @@ public class ArenaFiles {
         return config.getConfigurationSection(name);
     }
 
+    //saves an arena to the file
     public void saveArena(Arena arena){
         getArenas().set(arena.getName() + ".Enabled", arena.isEnabled());
         getArenas().set(arena.getName() + ".NeededPlayers", arena.getNeededPlayers());
@@ -62,6 +65,7 @@ public class ArenaFiles {
         saveArenas();
     }
 
+    //save the file
     public void saveArenas(){
         try{
             config.save(arenas);

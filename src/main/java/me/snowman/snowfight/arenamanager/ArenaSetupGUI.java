@@ -22,6 +22,7 @@ public class ArenaSetupGUI {
     ItemStack redBase;
     ItemStack whiteBase;
 
+    //this makes the gui
     public Inventory getSetup(Player player, Arena arena){
         Inventory inv = Bukkit.createInventory(null, 36, "title");
         arenaManager.addEditing(player, arena);
@@ -32,6 +33,7 @@ public class ArenaSetupGUI {
         return inv;
     }
 
+    //items down below
     public ItemStack getNeededPlayers(Player player){
         Arena arena = arenaManager.isEditing(player);
         ItemMeta meta;
