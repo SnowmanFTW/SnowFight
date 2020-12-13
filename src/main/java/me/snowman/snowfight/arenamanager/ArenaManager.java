@@ -61,6 +61,7 @@ public class ArenaManager {
             Arena arena =  new Arena(arenaName, arenaFiles.getArena(arenaName).getBoolean("Enabled"));
             arena.setNeededPlayers(arenaFiles.getArena(arenaName).getInt("NeededPlayers"));
             arena.setRedSpawn(arenaFiles.getArena(arenaName).getLocation("RedSpawn"));
+            arena.setWhiteSpawn(arenaFiles.getArena(arenaName).getLocation("WhiteSpawn"));
             getArenas().add(arena);
         }
     }

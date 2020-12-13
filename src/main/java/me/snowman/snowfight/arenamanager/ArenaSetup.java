@@ -38,7 +38,9 @@ public class ArenaSetup implements Listener {
         if(event.getCurrentItem().equals(arenaSetupGUI.getNeededPlayers(player))){
             chatInput.put(player.getUniqueId(), "np");
         }else if(event.getCurrentItem().equals(arenaSetupGUI.getRedSpawn(player))){
-            chatInput.put(player.getUniqueId(), "rp");
+            chatInput.put(player.getUniqueId(), "rs");
+        }else if(event.getCurrentItem().equals(arenaSetupGUI.getWhiteSpawn(player))){
+            chatInput.put(player.getUniqueId(), "ws");
         }
         player.closeInventory();
         arenaManager.addEditing(player, arena);
@@ -62,9 +64,14 @@ public class ArenaSetup implements Listener {
                 arenaFiles.getArena(arenaManager.isEditing(player).getName()).set("NeededPlayers", event.getMessage());
                 arenaFiles.saveArena(arenaManager.isEditing(player));
                 break;
-            case "rp":
+            case "rs":
                 arenaManager.isEditing(player).setRedSpawn(player.getLocation());
                 arenaFiles.getArena(arenaManager.isEditing(player).getName()).set("RedSpawn", player.getLocation());
+                arenaFiles.saveArena(arenaManager.isEditing(player));
+                break;
+            case "ws":
+                arenaManager.isEditing(player).setWhiteSpawn(player.getLocation());
+                arenaFiles.getArena(arenaManager.isEditing(player).getName()).set("WhiteSpawn", player.getLocation());
                 arenaFiles.saveArena(arenaManager.isEditing(player));
                 break;
         }

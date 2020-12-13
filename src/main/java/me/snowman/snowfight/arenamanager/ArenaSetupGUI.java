@@ -70,9 +70,19 @@ public class ArenaSetupGUI {
 
     public ItemStack getWhiteSpawn(Player player){
         Arena arena = arenaManager.isEditing(player);
+        ItemMeta meta;
         if(arena.getWhiteSpawn() == null){
             whiteSpawn = new ItemStack(Material.RED_CONCRETE);
-        }else whiteSpawn = new ItemStack(Material.GREEN_CONCRETE);
+            meta = whiteSpawn.getItemMeta();
+            meta.setDisplayName(ChatColor.RED + "White Spawn");
+            meta.setLore(Arrays.asList(ChatColor.GRAY + "Not set"));
+        }else{
+            whiteSpawn = new ItemStack(Material.GREEN_CONCRETE);
+            meta = whiteSpawn.getItemMeta();
+            meta.setDisplayName(ChatColor.GREEN + "White Spawn");
+            meta.setLore(Arrays.asList(ChatColor.GRAY + "Set (" + arena.getWhiteSpawn().getBlockX() + "/" + arena.getWhiteSpawn().getBlockY() + "/" + arena.getWhiteSpawn().getBlockZ() + ")"));
+        }
+        whiteSpawn.setItemMeta(meta);
         return whiteSpawn;
     }
 
