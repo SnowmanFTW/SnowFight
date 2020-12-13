@@ -1,0 +1,10 @@
+me\snowman\snowfight\SnowFight.class
+me\snowman\snowfight\arenamanager\ArenaFiles.class
+me\snowman\snowfight\arenamanager\GameManager.class
+me\snowman\snowfight\managers\PluginManager.class
+me\snowman\snowfight\arenamanager\Arena$GameState.class
+me\snowman\snowfight\arenamanager\ArenaManager.class
+me\snowman\snowfight\arenamanager\ArenaSetupGUI.class
+me\snowman\snowfight\arenamanager\ArenaSetup.class
+me\snowman\snowfight\commands\SnowFight.class
+me\snowman\snowfight\arenamanager\Arena.class

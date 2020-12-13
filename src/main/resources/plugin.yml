@@ -1,0 +1,12 @@
+main: me.snowman.snowfight.SnowFight
+author: SnowmanFTW
+name: SnowFight
+version: Build ${buildNumber}
+api-version: 1.13
+
+commands:
+  snowfight:
+    description: Main command for the Snow Fight plugin
+    aliases:
+      - sf
+    usage: /<command>
