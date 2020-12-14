@@ -1,5 +1,8 @@
 package me.snowman.snowfight.arenamanager;
 
+import com.sk89q.worldedit.math.BlockVector3;
+import com.sk89q.worldedit.regions.CuboidRegion;
+import me.snowman.snowfight.managers.PluginManager;
 import org.bukkit.entity.Player;
 
 import java.util.*;
@@ -68,6 +71,10 @@ public class ArenaManager {
             arena.setNeededPlayers(arenaFiles.getArena(arenaName).getInt("NeededPlayers"));
             arena.setRedSpawn(arenaFiles.getArena(arenaName).getLocation("RedSpawn"));
             arena.setWhiteSpawn(arenaFiles.getArena(arenaName).getLocation("WhiteSpawn"));
+            if(arenaFiles.getArena(arenaName).getString("Center.MinimumPoint") != null){
+                arena.setCenter(new CuboidRegion(deserialize(arenaFiles.getArena(arenaName).getString("Center.MinimumPoint")), deserialize(arenaFiles.getArena(arenaName).getString("Center.MaximumPoint"))));
+            }
+
             getArenas().add(arena);
         }
     }
@@ -95,6 +102,11 @@ public class ArenaManager {
     //removes the player from setup mode
     public void removeEditing(Player player){
         isEditing.remove(player.getUniqueId());
+    }
+
+    public BlockVector3 deserialize(String string){
+        String[] coords = string.replace("(", "").replace(")", "").split(", ");
+        return BlockVector3.at(Integer.parseInt(coords[0]), Integer.parseInt(coords[1]), Integer.parseInt(coords[2]));
     }
 
 

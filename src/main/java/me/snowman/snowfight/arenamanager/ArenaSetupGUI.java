@@ -90,9 +90,19 @@ public class ArenaSetupGUI {
 
     public ItemStack getCenter(Player player){
         Arena arena = arenaManager.isEditing(player);
+        ItemMeta meta;
         if(arena.getCenter() == null){
             center = new ItemStack(Material.RED_CONCRETE);
-        }else center = new ItemStack(Material.GREEN_CONCRETE);
+            meta = center.getItemMeta();
+            meta.setDisplayName(ChatColor.RED + "Center Region");
+            meta.setLore(Arrays.asList(ChatColor.GRAY + "Not Set"));
+        }else{
+            center = new ItemStack(Material.GREEN_CONCRETE);
+            meta = center.getItemMeta();
+            meta.setDisplayName(ChatColor.GREEN + "Center Region");
+            meta.setLore(Arrays.asList(ChatColor.GRAY + "Set " + arena.getCenter().toString()));
+        }
+        center.setItemMeta(meta);
         return center;
     }
 

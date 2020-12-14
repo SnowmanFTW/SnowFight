@@ -4,6 +4,7 @@ import me.snowman.snowfight.SnowFight;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,19 +29,18 @@ public class ArenaFiles {
         if(!arenas.exists()){
             try{
                 arenas.createNewFile();
+                config = YamlConfiguration.loadConfiguration(arenas);
             }catch (IOException e){
                 e.printStackTrace();
             }
         }
-        config = YamlConfiguration.loadConfiguration(arenas);
+        if(config == null){
+            config = YamlConfiguration.loadConfiguration(arenas);
+        }
     }
 
     //gets the arena file
     public FileConfiguration getArenas(){
-        if(arenas == null){
-            arenas = new File(snowFight.getDataFolder(), "arenas.yml");
-            config = YamlConfiguration.loadConfiguration(arenas);
-        }
         return config;
     }
 
@@ -59,7 +59,8 @@ public class ArenaFiles {
         getArenas().set(arena.getName() + ".NeededPlayers", arena.getNeededPlayers());
         getArenas().set(arena.getName() + ".RedSpawn", arena.getRedSpawn());
         getArenas().set(arena.getName() + ".WhiteSpawn", arena.getWhiteSpawn());
-        getArenas().set(arena.getName() + ".Center", arena.getCenter());
+        getArenas().set(arena.getName() + ".Center.MinimumPoint", arena.getCenter().getMinimumPoint().toString());
+        getArenas().set(arena.getName() + ".Center.MaximumPoint", arena.getCenter().getMaximumPoint().toString());
         getArenas().set(arena.getName() + ".RedBase", arena.getRedBase());
         getArenas().set(arena.getName() + ".WhiteBase", arena.getWhiteBase());
         saveArenas();

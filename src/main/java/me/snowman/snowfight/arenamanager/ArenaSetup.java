@@ -1,6 +1,11 @@
 package me.snowman.snowfight.arenamanager;
 
+import com.sk89q.worldedit.IncompleteRegionException;
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
+import com.sk89q.worldedit.bukkit.WorldEditPlugin;
+import com.sk89q.worldedit.regions.Region;
 import me.snowman.snowfight.SnowFight;
+import me.snowman.snowfight.managers.PluginManager;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,11 +25,13 @@ public class ArenaSetup implements Listener {
     private final ArenaSetupGUI arenaSetupGUI;
     private final SnowFight snowFight;
     private final ArenaFiles arenaFiles;
-    public ArenaSetup(ArenaManager arenaManager, ArenaSetupGUI arenaSetupGUI, SnowFight snowFight, ArenaFiles arenaFiles){
+    private final PluginManager pluginManager;
+    public ArenaSetup(ArenaManager arenaManager, ArenaSetupGUI arenaSetupGUI, SnowFight snowFight, ArenaFiles arenaFiles, PluginManager pluginManager){
         this.arenaManager = arenaManager;
         this.arenaSetupGUI = arenaSetupGUI;
         this.snowFight = snowFight;
         this.arenaFiles = arenaFiles;
+        this.pluginManager = pluginManager;
     }
 
     private final Map<UUID, String> chatInput = new HashMap<>();
@@ -42,6 +49,8 @@ public class ArenaSetup implements Listener {
             chatInput.put(player.getUniqueId(), "rs");
         }else if(event.getCurrentItem().equals(arenaSetupGUI.getWhiteSpawn(player))){
             chatInput.put(player.getUniqueId(), "ws");
+        }else if(event.getCurrentItem().equals(arenaSetupGUI.getCenter(player))){
+            chatInput.put(player.getUniqueId(), "c");
         }
         player.closeInventory();
         arenaManager.addEditing(player, arena);
@@ -56,7 +65,7 @@ public class ArenaSetup implements Listener {
 
     //gets chat input to set the arena info
     @EventHandler
-    public void onChat(AsyncPlayerChatEvent event){
+    public void onChat(AsyncPlayerChatEvent event) throws IncompleteRegionException {
         Player player = event.getPlayer();
 
         if(!chatInput.containsKey(player.getUniqueId())) return;
@@ -64,17 +73,19 @@ public class ArenaSetup implements Listener {
         switch(chatInput.get(player.getUniqueId())){
             case "np":
                 arenaManager.isEditing(player).setNeededPlayers(Integer.parseInt(event.getMessage()));
-                arenaFiles.getArena(arenaManager.isEditing(player).getName()).set("NeededPlayers", event.getMessage());
                 arenaFiles.saveArena(arenaManager.isEditing(player));
                 break;
             case "rs":
                 arenaManager.isEditing(player).setRedSpawn(player.getLocation());
-                arenaFiles.getArena(arenaManager.isEditing(player).getName()).set("RedSpawn", player.getLocation());
                 arenaFiles.saveArena(arenaManager.isEditing(player));
                 break;
             case "ws":
                 arenaManager.isEditing(player).setWhiteSpawn(player.getLocation());
-                arenaFiles.getArena(arenaManager.isEditing(player).getName()).set("WhiteSpawn", player.getLocation());
+                arenaFiles.saveArena(arenaManager.isEditing(player));
+                break;
+            case "c":
+                Region region = pluginManager.getWorldEdit().getSession(player).getSelection(BukkitAdapter.adapt(player.getWorld()));
+                arenaManager.isEditing(player).setCenter(region);
                 arenaFiles.saveArena(arenaManager.isEditing(player));
                 break;
         }

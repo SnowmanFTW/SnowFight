@@ -1,6 +1,7 @@
 package me.snowman.snowfight.arenamanager;
 
 import com.sk89q.worldedit.internal.annotation.Selection;
+import com.sk89q.worldedit.regions.Region;
 import org.bukkit.Location;
 
 import java.util.ArrayList;
@@ -9,14 +10,14 @@ import java.util.UUID;
 
 //literally the arena object
 public class Arena {
-    private String name;
+    private final String name;
     private boolean enabled;
     private GameState state;
-    private List<UUID> players = new ArrayList<>();
+    private final List<UUID> players = new ArrayList<>();
     private int neededPlayers;
     private Location redSpawn;
     private Location whiteSpawn;
-    private Selection center;
+    private Region center;
     private Selection redBase;
     private Selection whiteBase;
 
@@ -61,11 +62,11 @@ public class Arena {
         this.whiteSpawn = whiteSpawn;
     }
 
-    public Selection getCenter() {
+    public Region getCenter() {
         return center;
     }
 
-    public void setCenter(Selection center) {
+    public void setCenter(Region center) {
         this.center = center;
     }
 
