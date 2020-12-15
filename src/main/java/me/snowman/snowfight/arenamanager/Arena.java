@@ -15,10 +15,19 @@ public class Arena {
     private GameState state;
     private final List<UUID> players = new ArrayList<>();
     private int neededPlayers;
+    private int maxPlayers;
     private Location redSpawn;
     private Location whiteSpawn;
     private Region redBase;
     private Region whiteBase;
+
+    public int getMaxPlayers() {
+        return maxPlayers;
+    }
+
+    public void setMaxPlayers(int maxPlayers) {
+        this.maxPlayers = maxPlayers;
+    }
 
     public enum GameState{
         WAITING, STARTING, INGAME, FINISHED

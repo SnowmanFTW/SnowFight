@@ -7,7 +7,7 @@ public class GameManager {
     }
 
     //methods for when the game starts, mid game, end etc.
-    public void gameStart(){
+    public void gameStart(Arena arena){
 
     }
 }

@@ -57,6 +57,7 @@ public class ArenaFiles {
     public void saveArena(Arena arena){
         getArenas().set(arena.getName() + ".Enabled", arena.isEnabled());
         getArenas().set(arena.getName() + ".NeededPlayers", arena.getNeededPlayers());
+        getArenas().set(arena.getName() + ".MaxPlayers", arena.getMaxPlayers());
         getArenas().set(arena.getName() + ".RedSpawn", arena.getRedSpawn());
         getArenas().set(arena.getName() + ".WhiteSpawn", arena.getWhiteSpawn());
         if(arena.getRedArea() != null) {

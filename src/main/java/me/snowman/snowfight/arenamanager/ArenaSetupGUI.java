@@ -25,11 +25,12 @@ public class ArenaSetupGUI {
     public Inventory getSetup(Player player, Arena arena){
         Inventory inv = Bukkit.createInventory(null, 27, "title");
         arenaManager.addEditing(player, arena);
-        inv.setItem(9, getNeededPlayers(arena));
-        inv.setItem(11, getRedSpawn(arena));
-        inv.setItem(13, getWhiteSpawn(arena));
-        inv.setItem(15, getRedArea(arena));
-        inv.setItem(17, getWhiteArea(arena));
+        inv.setItem(10, getNeededPlayers(arena));
+        inv.setItem(11, getMaxPlayers(arena));
+        inv.setItem(12, getRedSpawn(arena));
+        inv.setItem(14, getRedArea(arena));
+        inv.setItem(15, getWhiteSpawn(arena));
+        inv.setItem(16, getWhiteArea(arena));
         return inv;
     }
 
@@ -39,6 +40,12 @@ public class ArenaSetupGUI {
             return new ItemBuilder(Material.RED_CONCRETE).setName(ChatColor.RED + "Needed Players").setLore(Collections.singletonList(ChatColor.GRAY + "Not set")).build();
         }
         return new ItemBuilder(Material.GREEN_CONCRETE).setName(ChatColor.GREEN + "Needed Players").setLore(Collections.singletonList(ChatColor.GRAY + "Set (" + arena.getNeededPlayers() + ")")).build();
+    }
+    public ItemStack getMaxPlayers(Arena arena){
+        if(arena.getMaxPlayers() == 0){
+            return new ItemBuilder(Material.RED_CONCRETE).setName(ChatColor.RED + "Max Players").setLore(Collections.singletonList(ChatColor.GRAY + "Not set")).build();
+        }
+        return new ItemBuilder(Material.GREEN_CONCRETE).setName(ChatColor.GREEN + "Max Players").setLore(Collections.singletonList(ChatColor.GRAY + "Set (" + arena.getMaxPlayers() + ")")).build();
     }
 
     public ItemStack getRedSpawn(Arena arena){

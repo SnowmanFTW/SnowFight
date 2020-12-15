@@ -2,7 +2,6 @@ package me.snowman.snowfight.arenamanager;
 
 import com.sk89q.worldedit.IncompleteRegionException;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
-import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.regions.Region;
 import me.snowman.snowfight.SnowFight;
 import me.snowman.snowfight.managers.PluginManager;
@@ -53,6 +52,8 @@ public class ArenaSetup implements Listener {
             chatInput.put(player.getUniqueId(), "ra");
         }else if(event.getCurrentItem().equals(arenaSetupGUI.getWhiteArea(arena))){
             chatInput.put(player.getUniqueId(), "wa");
+        }else if(event.getCurrentItem().equals(arenaSetupGUI.getMaxPlayers(arena))){
+            chatInput.put(player.getUniqueId(), "mp");
         }
         player.closeInventory();
         arenaManager.addEditing(player, arena);
@@ -92,6 +93,10 @@ public class ArenaSetup implements Listener {
                 break;
             case "wa":
                 arenaManager.isEditing(player).setWhiteArea(region);
+                arenaFiles.saveArena(arenaManager.isEditing(player));
+                break;
+            case "mp":
+                arenaManager.isEditing(player).setMaxPlayers(Integer.parseInt(event.getMessage()));
                 arenaFiles.saveArena(arenaManager.isEditing(player));
                 break;
         }
