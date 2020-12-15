@@ -43,14 +43,16 @@ public class ArenaSetup implements Listener {
         Arena arena = arenaManager.isEditing(player);
         if(arena != null) event.setCancelled(true);
         if(event.getCurrentItem() == null || event.getCurrentItem().getType().equals(Material.AIR)) return;
-        if(event.getCurrentItem().equals(arenaSetupGUI.getNeededPlayers(player))){
+        if(event.getCurrentItem().equals(arenaSetupGUI.getNeededPlayers(arena))){
             chatInput.put(player.getUniqueId(), "np");
-        }else if(event.getCurrentItem().equals(arenaSetupGUI.getRedSpawn(player))){
+        }else if(event.getCurrentItem().equals(arenaSetupGUI.getRedSpawn(arena))){
             chatInput.put(player.getUniqueId(), "rs");
-        }else if(event.getCurrentItem().equals(arenaSetupGUI.getWhiteSpawn(player))){
+        }else if(event.getCurrentItem().equals(arenaSetupGUI.getWhiteSpawn(arena))){
             chatInput.put(player.getUniqueId(), "ws");
-        }else if(event.getCurrentItem().equals(arenaSetupGUI.getCenter(player))){
-            chatInput.put(player.getUniqueId(), "c");
+        }else if(event.getCurrentItem().equals(arenaSetupGUI.getRedArea(arena))){
+            chatInput.put(player.getUniqueId(), "ra");
+        }else if(event.getCurrentItem().equals(arenaSetupGUI.getWhiteArea(arena))){
+            chatInput.put(player.getUniqueId(), "wa");
         }
         player.closeInventory();
         arenaManager.addEditing(player, arena);
@@ -70,6 +72,7 @@ public class ArenaSetup implements Listener {
 
         if(!chatInput.containsKey(player.getUniqueId())) return;
         event.setCancelled(true);
+        Region region = pluginManager.getWorldEdit().getSession(player).getSelection(BukkitAdapter.adapt(player.getWorld()));
         switch(chatInput.get(player.getUniqueId())){
             case "np":
                 arenaManager.isEditing(player).setNeededPlayers(Integer.parseInt(event.getMessage()));
@@ -83,9 +86,12 @@ public class ArenaSetup implements Listener {
                 arenaManager.isEditing(player).setWhiteSpawn(player.getLocation());
                 arenaFiles.saveArena(arenaManager.isEditing(player));
                 break;
-            case "c":
-                Region region = pluginManager.getWorldEdit().getSession(player).getSelection(BukkitAdapter.adapt(player.getWorld()));
-                arenaManager.isEditing(player).setCenter(region);
+            case "ra":
+                arenaManager.isEditing(player).setRedArea(region);
+                arenaFiles.saveArena(arenaManager.isEditing(player));
+                break;
+            case "wa":
+                arenaManager.isEditing(player).setWhiteArea(region);
                 arenaFiles.saveArena(arenaManager.isEditing(player));
                 break;
         }

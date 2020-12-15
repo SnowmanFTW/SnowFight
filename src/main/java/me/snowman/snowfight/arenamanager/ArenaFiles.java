@@ -59,10 +59,14 @@ public class ArenaFiles {
         getArenas().set(arena.getName() + ".NeededPlayers", arena.getNeededPlayers());
         getArenas().set(arena.getName() + ".RedSpawn", arena.getRedSpawn());
         getArenas().set(arena.getName() + ".WhiteSpawn", arena.getWhiteSpawn());
-        getArenas().set(arena.getName() + ".Center.MinimumPoint", arena.getCenter().getMinimumPoint().toString());
-        getArenas().set(arena.getName() + ".Center.MaximumPoint", arena.getCenter().getMaximumPoint().toString());
-        getArenas().set(arena.getName() + ".RedBase", arena.getRedBase());
-        getArenas().set(arena.getName() + ".WhiteBase", arena.getWhiteBase());
+        if(arena.getRedArea() != null) {
+            getArenas().set(arena.getName() + ".RedArea.MinimumPoint", arena.getRedArea().getMinimumPoint().toString());
+            getArenas().set(arena.getName() + ".RedArea.MaximumPoint", arena.getRedArea().getMaximumPoint().toString());
+        }
+        if(arena.getWhiteArea() != null) {
+            getArenas().set(arena.getName() + ".WhiteArea.MinimumPoint", arena.getWhiteArea().getMinimumPoint().toString());
+            getArenas().set(arena.getName() + ".WhiteArea.MaximumPoint", arena.getWhiteArea().getMaximumPoint().toString());
+        }
         saveArenas();
     }
 

@@ -1,5 +1,6 @@
 package me.snowman.snowfight.arenamanager;
 
+import me.snowman.snowfight.builders.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -9,108 +10,61 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 public class ArenaSetupGUI {
     private final ArenaManager arenaManager;
     public ArenaSetupGUI(ArenaManager arenaManager){
         this.arenaManager = arenaManager;
     }
-    ItemStack neededPlayers;
-    ItemStack redSpawn;
     ItemStack whiteSpawn;
-    ItemStack center;
-    ItemStack redBase;
-    ItemStack whiteBase;
+    ItemStack redArea;
+    ItemStack whiteArea;
 
     //this makes the gui
     public Inventory getSetup(Player player, Arena arena){
-        Inventory inv = Bukkit.createInventory(null, 36, "title");
+        Inventory inv = Bukkit.createInventory(null, 27, "title");
         arenaManager.addEditing(player, arena);
-        inv.setItem(10, getNeededPlayers(player));
-        inv.setItem(20, getRedSpawn(player));
-        inv.setItem(12, getWhiteSpawn(player));
-        inv.setItem(22, getCenter(player));
+        inv.setItem(9, getNeededPlayers(arena));
+        inv.setItem(11, getRedSpawn(arena));
+        inv.setItem(13, getWhiteSpawn(arena));
+        inv.setItem(15, getRedArea(arena));
+        inv.setItem(17, getWhiteArea(arena));
         return inv;
     }
 
     //items down below
-    public ItemStack getNeededPlayers(Player player){
-        Arena arena = arenaManager.isEditing(player);
-        ItemMeta meta;
+    public ItemStack getNeededPlayers(Arena arena){
         if(arena.getNeededPlayers() == 0){
-            neededPlayers = new ItemStack(Material.RED_CONCRETE);
-            meta = neededPlayers.getItemMeta();
-            meta.setDisplayName(ChatColor.RED + "Needed Players");
-            meta.setLore(Arrays.asList(ChatColor.GRAY + "Not set"));
-        }else{
-            neededPlayers = new ItemStack(Material.GREEN_CONCRETE);
-            meta = neededPlayers.getItemMeta();
-            meta.setDisplayName(ChatColor.GREEN + "Needed Players");
-            meta.setLore(Arrays.asList(ChatColor.GRAY + "Set (" + arena.getNeededPlayers() + ")"));
+            return new ItemBuilder(Material.RED_CONCRETE).setName(ChatColor.RED + "Needed Players").setLore(Collections.singletonList(ChatColor.GRAY + "Not set")).build();
         }
-        neededPlayers.setItemMeta(meta);
-        return neededPlayers;
+        return new ItemBuilder(Material.GREEN_CONCRETE).setName(ChatColor.GREEN + "Needed Players").setLore(Collections.singletonList(ChatColor.GRAY + "Set (" + arena.getNeededPlayers() + ")")).build();
     }
 
-    public ItemStack getRedSpawn(Player player){
-        Arena arena = arenaManager.isEditing(player);
-        ItemMeta meta;
+    public ItemStack getRedSpawn(Arena arena){
         if(arena.getRedSpawn() == null){
-            redSpawn = new ItemStack(Material.RED_CONCRETE);
-            meta = redSpawn.getItemMeta();
-            meta.setDisplayName(ChatColor.RED + "Red Spawn");
-            meta.setLore(Arrays.asList(ChatColor.GRAY + "Not set"));
-        }else{
-            redSpawn = new ItemStack(Material.GREEN_CONCRETE);
-            meta = redSpawn.getItemMeta();
-            meta.setDisplayName(ChatColor.GREEN + "Red Spawn");
-            meta.setLore(Arrays.asList(ChatColor.GRAY + "Set (" + arena.getRedSpawn().getBlockX() + "/" + arena.getRedSpawn().getBlockY() + "/" + arena.getRedSpawn().getBlockZ() + ")"));
+            return new ItemBuilder(Material.RED_CONCRETE).setName(ChatColor.RED + "Red Spawn").setLore(Collections.singletonList(ChatColor.GRAY + "Not set")).build();
         }
-        redSpawn.setItemMeta(meta);
-        return redSpawn;
+        return new ItemBuilder(Material.GREEN_CONCRETE).setName(ChatColor.GREEN + "Red Spawn").setLore(Collections.singletonList(ChatColor.GRAY + "Set (" +
+                arena.getRedSpawn().getBlockX() + "/" + arena.getRedSpawn().getBlockY() + "/" + arena.getRedSpawn().getBlockZ() + ")")).build();
     }
 
-    public ItemStack getWhiteSpawn(Player player){
-        Arena arena = arenaManager.isEditing(player);
-        ItemMeta meta;
+    public ItemStack getWhiteSpawn(Arena arena){
         if(arena.getWhiteSpawn() == null){
-            whiteSpawn = new ItemStack(Material.RED_CONCRETE);
-            meta = whiteSpawn.getItemMeta();
-            meta.setDisplayName(ChatColor.RED + "White Spawn");
-            meta.setLore(Arrays.asList(ChatColor.GRAY + "Not set"));
-        }else{
-            whiteSpawn = new ItemStack(Material.GREEN_CONCRETE);
-            meta = whiteSpawn.getItemMeta();
-            meta.setDisplayName(ChatColor.GREEN + "White Spawn");
-            meta.setLore(Arrays.asList(ChatColor.GRAY + "Set (" + arena.getWhiteSpawn().getBlockX() + "/" + arena.getWhiteSpawn().getBlockY() + "/" + arena.getWhiteSpawn().getBlockZ() + ")"));
-        }
-        whiteSpawn.setItemMeta(meta);
-        return whiteSpawn;
+            return new ItemBuilder(Material.RED_CONCRETE).setName(ChatColor.RED + "White Spawn").setLore(Collections.singletonList(ChatColor.GRAY + "Not set")).build();
+        }else return new ItemBuilder(Material.GREEN_CONCRETE).setName(ChatColor.GREEN + "White Spawn").setLore(Collections.singletonList(ChatColor.GRAY + "Set (" +
+                arena.getWhiteSpawn().getBlockX() + "/" + arena.getWhiteSpawn().getBlockY() + "/" + arena.getWhiteSpawn().getBlockZ() + ")")).build();
     }
 
-    public ItemStack getCenter(Player player){
-        Arena arena = arenaManager.isEditing(player);
-        ItemMeta meta;
-        if(arena.getCenter() == null){
-            center = new ItemStack(Material.RED_CONCRETE);
-            meta = center.getItemMeta();
-            meta.setDisplayName(ChatColor.RED + "Center Region");
-            meta.setLore(Arrays.asList(ChatColor.GRAY + "Not Set"));
-        }else{
-            center = new ItemStack(Material.GREEN_CONCRETE);
-            meta = center.getItemMeta();
-            meta.setDisplayName(ChatColor.GREEN + "Center Region");
-            meta.setLore(Arrays.asList(ChatColor.GRAY + "Set " + arena.getCenter().toString()));
-        }
-        center.setItemMeta(meta);
-        return center;
+    public ItemStack getRedArea(Arena arena){
+        if(arena.getRedArea() == null){
+            return new ItemBuilder(Material.RED_CONCRETE).setName(ChatColor.RED + "Red area region").setLore(Collections.singletonList(ChatColor.GRAY + "Not set")).build();
+        }else return new ItemBuilder(Material.GREEN_CONCRETE).setName(ChatColor.GREEN + "Red area region").setLore(Collections.singletonList(ChatColor.GRAY + "Set " + arena.getRedArea().toString())).build();
     }
 
-    private void getRedBase(){
-
-    }
-
-    private void getWhiteBase(){
-
+    public ItemStack getWhiteArea(Arena arena){
+        if(arena.getWhiteArea() == null){
+            return new ItemBuilder(Material.RED_CONCRETE).setName(ChatColor.RED + "White area region").setLore(Collections.singletonList(ChatColor.GRAY + "Not set")).build();
+        }else return new ItemBuilder(Material.GREEN_CONCRETE).setName(ChatColor.GREEN + "White area region").setLore(Collections.singletonList(ChatColor.GRAY + "Set " + arena.getWhiteArea().toString())).build();
     }
 }

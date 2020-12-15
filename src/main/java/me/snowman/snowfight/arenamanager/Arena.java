@@ -17,9 +17,8 @@ public class Arena {
     private int neededPlayers;
     private Location redSpawn;
     private Location whiteSpawn;
-    private Region center;
-    private Selection redBase;
-    private Selection whiteBase;
+    private Region redBase;
+    private Region whiteBase;
 
     public enum GameState{
         WAITING, STARTING, INGAME, FINISHED
@@ -62,27 +61,19 @@ public class Arena {
         this.whiteSpawn = whiteSpawn;
     }
 
-    public Region getCenter() {
-        return center;
-    }
-
-    public void setCenter(Region center) {
-        this.center = center;
-    }
-
-    public Selection getRedBase() {
+    public Region getRedArea() {
         return redBase;
     }
 
-    public void setRedBase(Selection redBase) {
+    public void setRedArea(Region redBase) {
         this.redBase = redBase;
     }
 
-    public Selection getWhiteBase() {
+    public Region getWhiteArea() {
         return whiteBase;
     }
 
-    public void setWhiteBase(Selection whiteBase) {
+    public void setWhiteArea(Region whiteBase) {
         this.whiteBase = whiteBase;
     }
 

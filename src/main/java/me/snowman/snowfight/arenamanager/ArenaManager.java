@@ -71,8 +71,11 @@ public class ArenaManager {
             arena.setNeededPlayers(arenaFiles.getArena(arenaName).getInt("NeededPlayers"));
             arena.setRedSpawn(arenaFiles.getArena(arenaName).getLocation("RedSpawn"));
             arena.setWhiteSpawn(arenaFiles.getArena(arenaName).getLocation("WhiteSpawn"));
-            if(arenaFiles.getArena(arenaName).getString("Center.MinimumPoint") != null){
-                arena.setCenter(new CuboidRegion(deserialize(arenaFiles.getArena(arenaName).getString("Center.MinimumPoint")), deserialize(arenaFiles.getArena(arenaName).getString("Center.MaximumPoint"))));
+            if(arenaFiles.getArena(arenaName).getString("RedArea") != null){
+                arena.setRedArea(new CuboidRegion(deserialize(arenaFiles.getArena(arenaName).getString("RedArea.MinimumPoint")), deserialize(arenaFiles.getArena(arenaName).getString("RedArea.MaximumPoint"))));
+            }
+            if(arenaFiles.getArena(arenaName).getString("WhiteArea") != null){
+                arena.setWhiteArea(new CuboidRegion(deserialize(arenaFiles.getArena(arenaName).getString("WhiteArea.MinimumPoint")), deserialize(arenaFiles.getArena(arenaName).getString("WhiteArea.MaximumPoint"))));
             }
 
             getArenas().add(arena);
