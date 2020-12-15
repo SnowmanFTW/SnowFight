@@ -9,12 +9,14 @@ import java.util.*;
 
 public class ArenaManager {
     private final ArenaFiles arenaFiles;
+    private final GameManager gameManager;
 
     private List<Arena> arenas = new ArrayList<>();
     private Map<UUID, Arena> isEditing = new HashMap<>();
 
-    public ArenaManager(ArenaFiles arenaFiles){
+    public ArenaManager(ArenaFiles arenaFiles, GameManager gameManager){
         this.arenaFiles = arenaFiles;
+        this.gameManager = gameManager;
     }
 
 
@@ -40,6 +42,7 @@ public class ArenaManager {
 
          Arena arena = getArena(arenaName);
          arena.getPlayers().add(player.getUniqueId());
+         gameManager.gameStart(arena, player);
     }
 
     //removes a player from the arena
