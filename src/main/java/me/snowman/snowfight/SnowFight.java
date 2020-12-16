@@ -14,7 +14,7 @@ public class SnowFight extends JavaPlugin {
     //main lol
     public void onEnable(){
         final ArenaFiles arenaFiles = new ArenaFiles(this);
-        final GameManager gameManager = new GameManager();
+        final GameManager gameManager = new GameManager(this);
         final ArenaManager arenaManager = new ArenaManager(arenaFiles, gameManager);
         final ArenaSetupGUI arenaSetupGUI = new ArenaSetupGUI(arenaManager);
         final PluginManager pluginManager = new me.snowman.snowfight.managers.PluginManager(this, arenaManager, arenaSetupGUI, arenaFiles);

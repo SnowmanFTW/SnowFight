@@ -1,27 +1,13 @@
 package me.snowman.snowfight.commands;
 
-import com.sk89q.worldedit.IncompleteRegionException;
-import com.sk89q.worldedit.WorldEdit;
-import com.sk89q.worldedit.bukkit.BukkitAdapter;
-import com.sk89q.worldedit.bukkit.BukkitPlayer;
-import com.sk89q.worldedit.bukkit.BukkitWorld;
-import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-import com.sk89q.worldedit.extension.platform.Actor;
-import com.sk89q.worldedit.math.BlockVector3;
-import com.sk89q.worldedit.regions.CuboidRegion;
-import com.sk89q.worldedit.regions.Region;
-import com.sk89q.worldedit.session.SessionOwner;
-import com.sk89q.worldedit.world.World;
 import me.snowman.snowfight.arenamanager.Arena;
 import me.snowman.snowfight.arenamanager.ArenaManager;
 import me.snowman.snowfight.arenamanager.ArenaSetupGUI;
-import org.bukkit.Bukkit;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import java.util.Vector;
 
 public class SnowFight implements CommandExecutor {
     private final ArenaManager arenaManager;
@@ -94,15 +80,9 @@ public class SnowFight implements CommandExecutor {
                 }
                 arenaManager.addPlayer(player, args[1]);
                 break;
-//            case "selectiontest":
-//                try {
-//                    //Region region = worldEditPlugin.getSession(player).getSelection(BukkitAdapter.adapt(player.getWorld()));
-//                    //Region region2 = new CuboidRegion(BlockVector3.at(), BlockVector3.at())
-//                    //player.sendMessage(region.toString());
-//                } catch (IncompleteRegionException e) {
-//                    e.printStackTrace();
-//                }
-//                break;
+            case "leave":
+                arenaManager.removePlayer(player);
+                break;
         }
         return true;
     }

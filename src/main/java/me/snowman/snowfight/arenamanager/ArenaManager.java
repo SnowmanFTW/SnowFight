@@ -41,6 +41,7 @@ public class ArenaManager {
          if(player == null) return;
 
          Arena arena = getArena(arenaName);
+         if(arena.getPlayers().contains(player.getUniqueId())) return;
          arena.getPlayers().add(player.getUniqueId());
          gameManager.gameStart(arena, player);
     }

@@ -14,12 +14,15 @@ public class Arena {
     private boolean enabled;
     private GameState state;
     private final List<UUID> players = new ArrayList<>();
+    private final List<UUID> redTeam = new ArrayList<>();
+    private final List<UUID> whiteTeam = new ArrayList<>();
     private int neededPlayers;
     private int maxPlayers;
     private Location redSpawn;
     private Location whiteSpawn;
     private Region redBase;
     private Region whiteBase;
+    private int countdown = 10;
 
     public int getMaxPlayers() {
         return maxPlayers;
@@ -27,6 +30,22 @@ public class Arena {
 
     public void setMaxPlayers(int maxPlayers) {
         this.maxPlayers = maxPlayers;
+    }
+
+    public int getCountdown() {
+        return countdown;
+    }
+
+    public void setCountdown(int countdown) {
+        this.countdown = countdown;
+    }
+
+    public List<UUID> getRedTeam() {
+        return redTeam;
+    }
+
+    public List<UUID> getWhiteTeam() {
+        return whiteTeam;
     }
 
     public enum GameState{
