@@ -39,6 +39,7 @@ public class ArenaSetup implements Listener {
     @EventHandler
     public void onGUISetup(InventoryClickEvent event){
         Player player = (Player) event.getWhoClicked();
+        if(arenaManager.isEditing(player) == null) return;
         Arena arena = arenaManager.isEditing(player);
         if(arena != null) event.setCancelled(true);
         if(event.getCurrentItem() == null || event.getCurrentItem().getType().equals(Material.AIR)) return;
@@ -73,7 +74,10 @@ public class ArenaSetup implements Listener {
 
         if(!chatInput.containsKey(player.getUniqueId())) return;
         event.setCancelled(true);
-        Region region = pluginManager.getWorldEdit().getSession(player).getSelection(BukkitAdapter.adapt(player.getWorld()));
+        Region region = null;
+        if(chatInput.get(player.getUniqueId()).equalsIgnoreCase("ra") || chatInput.get(player.getUniqueId()).equalsIgnoreCase("wa")) {
+            region = pluginManager.getWorldEdit().getSession(player).getSelection(BukkitAdapter.adapt(player.getWorld()));
+        }
         switch(chatInput.get(player.getUniqueId())){
             case "np":
                 arenaManager.isEditing(player).setNeededPlayers(Integer.parseInt(event.getMessage()));

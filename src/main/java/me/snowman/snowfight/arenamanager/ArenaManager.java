@@ -35,6 +35,15 @@ public class ArenaManager {
         return null;
     }
 
+    public Arena getArena(Player player){
+        for(Arena arena: arenas){
+            if(arena.getPlayers().contains(player.getUniqueId())){
+                return arena;
+            }
+        }
+        return null;
+    }
+
     //adds a player to an arena
     public void addPlayer(Player player, String arenaName){
         if(getArena(arenaName) == null) return;

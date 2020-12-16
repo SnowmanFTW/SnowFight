@@ -10,3 +10,4 @@ me\snowman\snowfight\arenamanager\GameManager.class
 me\snowman\snowfight\arenamanager\Arena$GameState.class
 me\snowman\snowfight\arenamanager\ArenaManager.class
 me\snowman\snowfight\arenamanager\ArenaSetup.class
+me\snowman\snowfight\arenamanager\ArenaRestrictions.class

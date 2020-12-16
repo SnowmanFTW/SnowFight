@@ -3,13 +3,16 @@ package me.snowman.snowfight.arenamanager;
 import me.snowman.snowfight.SnowFight;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.UUID;
 
 import static org.bukkit.Bukkit.getServer;
 
-public class GameManager {
+public class GameManager implements Listener {
     private final SnowFight snowFight;
     public GameManager(SnowFight snowFight){
         this.snowFight = snowFight;
@@ -62,13 +65,16 @@ public class GameManager {
     }
 
     private void tpTeams(Arena arena){
-        for(UUID uuid: arena.getRedTeam()){
-            Player player = getServer().getPlayer(uuid);
-            player.teleport(arena.getRedSpawn());
-        }
-        for(UUID uuid: arena.getWhiteTeam()){
-            Player player = getServer().getPlayer(uuid);
-            player.teleport(arena.getWhiteSpawn());
-        }
+        getServer().getScheduler().runTask(snowFight, () -> {
+            for(UUID uuid: arena.getRedTeam()){
+                Player player = getServer().getPlayer(uuid);
+                player.teleport(arena.getRedSpawn());
+            }
+            for(UUID uuid: arena.getWhiteTeam()){
+                Player player = getServer().getPlayer(uuid);
+                player.teleport(arena.getWhiteSpawn());
+            }
+        });
     }
+
 }

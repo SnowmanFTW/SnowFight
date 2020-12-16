@@ -3,10 +3,7 @@ package me.snowman.snowfight.managers;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.math.BlockVector3;
 import me.snowman.snowfight.SnowFight;
-import me.snowman.snowfight.arenamanager.ArenaFiles;
-import me.snowman.snowfight.arenamanager.ArenaManager;
-import me.snowman.snowfight.arenamanager.ArenaSetup;
-import me.snowman.snowfight.arenamanager.ArenaSetupGUI;
+import me.snowman.snowfight.arenamanager.*;
 import org.bukkit.Bukkit;
 
 import static org.bukkit.Bukkit.getServer;
@@ -31,6 +28,7 @@ public class PluginManager {
 
     public void registerEvents(){
         getServer().getPluginManager().registerEvents(new ArenaSetup(arenaManager, arenaSetupGUI, snowFight, arenaFiles, this), snowFight);
+        getServer().getPluginManager().registerEvents(new ArenaRestrictions(arenaManager), snowFight);
     }
 
     public WorldEditPlugin getWorldEdit(){
