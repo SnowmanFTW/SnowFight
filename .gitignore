@@ -1,0 +1,14 @@
+#IDEA && INTELLIJ
+.idea
+*.iml
+
+#COMPILED CLASSES
+target/*
+*.class
+
+#SERVER STUFF
+TestServer/
+!TestServer/*.jar
+!TestServer/*.bat
+!TestServer/*.sh
+!TestServer/plugins/*.jar
