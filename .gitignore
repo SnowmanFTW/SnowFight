@@ -7,7 +7,7 @@ target/*
 *.class
 
 #SERVER STUFF
-TestServer/
+TestServer/*
 !TestServer/eula.txt
 !TestServer/*.jar
 !TestServer/*.bat
