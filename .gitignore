@@ -1,15 +1,14 @@
 #IDEA && INTELLIJ
-.idea
+/.idea
 *.iml
 
 #COMPILED CLASSES
-target/*
-*.class
+/target/
 
 #SERVER STUFF
-TestServer/*
-!TestServer/eula.txt
-!TestServer/*.jar
-!TestServer/*.bat
-!TestServer/*.sh
-!TestServer/plugins/*.jar
+/TestServer/*
+!/TestServer/eula.txt
+!/TestServer/*.jar
+!/TestServer/*.bat
+!/TestServer/*.sh
+!/TestServer/plugins/*.jar
