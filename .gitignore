@@ -11,4 +11,4 @@
 !/TestServer/*.jar
 !/TestServer/*.bat
 !/TestServer/*.sh
-!/TestServer/plugins/*.jar
+!/TestServer/plugins/worldedit*.jar
